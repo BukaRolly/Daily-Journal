@@ -18,9 +18,9 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         localStorage.setItem('currentUser', username); // Store current user in localStorage
         document.getElementById('auth').style.display = 'none';
         document.getElementById('profile').style.display = 'block';
+        document.getElementById('LogedUser').value = currentUser.username || username;
         displaySubmissions();
     } else {
         alert('Invalid username or password');
     }
 });
-

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheets Data</title>
+</head>
+<body>
+ 
+<div id="Submissions-Table"></div>
+
+<script>
+  const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbzYC3j0dC9rrjfKdqvZiEpdixw-bGTpsWrFWD8y_VfbXNgpqZjj4SUEYWfbLFagOZc/exec';
+
+  function createSubmmissionsTable(data) {
+    let table = '<table border="1">';
+    data.forEach((row, rowIndex) => {
+      table += '<tr>';
+      row.forEach((cell) => {
+        if (rowIndex ===0) {
+          table += '<th>' + cell + '</th>';
+        } else {
+          table += '<td>' + cell + '</td>';
+        }
+      });
+      table += '</tr>';
+    });
+    table += '</table>';
+    document.getElementById('Submissions-Table').innerHTML =table;
+  }
+
+  fetch(GoogleScriptWebApp)
+    .then(response => response.json())
+    .then(data => {
+      createSubmmissionsTable(data);
+    })
+    .catch(error => {
+      console.error('Erorr Fetchiing Data', error);
+    });
+
+</script>
