@@ -4,16 +4,12 @@
   <title>Google Sheets Data</title>
 </head>
 <body>
-
-  <a href="Partner'sSubmissions.html" class="button-link">
-    <button>My partner's answers</button>
-  </a>
  
 <div id="Submissions-Table"></div>
 
 <script>
-  const currentUser = localStorage.getItem('currentUser');
-  const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbxkpFj8KvO6B2PQE1EOTIk56sovcoN_VCmas2HBApSW1VDv11bGM9nB23Ap25fxz0g/exec?filterValue=' + encodeURIComponent(currentUser);
+  const currentUsersPartner = localStorage.getItem('currentUser') === 'Bubu' ? 'Natasch' : 'Bubu';
+  const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbzxonNEv1sOSUZ7JBj7u2bJhdrFvDRYTR0HajF6WD-52egfjBVyq3ApHROgwp5-HsRc/exec?filterValue=' + encodeURIComponent(currentUsersPartner);
 
   function createSubmmissionsTable(data) {
     let table = '<table border="1">';
@@ -43,12 +39,4 @@
     });
 
 </script>
-
-  <iframe
-    src="https://lookerstudio.google.com/embed/reporting/f6a2760d-bc43-4cc4-be05-62d7a8916d01/page/VPx8D"
-    width="800"
-    height="500"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
 
