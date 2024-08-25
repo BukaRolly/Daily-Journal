@@ -5,62 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionnaire</title>
 </head>
+    <link rel="Stylesheet" href="Styles.css">
 <body>
-    <div id="auth">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <label for="loginUsername">Username:</label>
-            <input type="text" id="loginUsername" name="loginUsername" required><br>
+    <div class="Background2">
+        <dic class="LoginText">
+            <h2>Welcome to your Daily Journal!</h2>
+        </dic>
+        <div class="auth" id="auth">
+            <form id="loginForm">
+                <input type="text" id="loginUsername" name="loginUsername" placeholder="Username" required><br>
             
-            <label for="loginPassword">Password:</label>
-            <input type="password" id="loginPassword" name="loginPassword" required><br>
+                <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" required><br>
             
-            <button type="submit">Login</button>
-        </form>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="Form" id="profile" style="display:none;">
+            <h2>Fill in your Journal!</h2>
+            <form form action="https://script.google.com/macros/s/AKfycbz2Ky70wORkclpsvD1rLuGKHm0vucFvslqb2ffdfqwSS31yBsLp6cdjtWQsQX4ZKpw/exec" method="POST" id="questionnaireForm">
+                <label for="question1">How have you felt today? (1-10):</label>
+                <input type="number" id="question1" name="question1" min="1" max="10" required><br>
+            
+                <label for="question2">Did you have any frustrations today?:</label>
+                <select id="question2" name="question2" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select><br>
+            
+                <label for="question3">Did you feel strong and capable today?:</label>
+                <select id="question3" name="question3" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select><br>
+            
+                <label for="question4">Did you feel appreciated and loved today?:</label>
+                <select id="question4" name="question4" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select><br>
+            
+                <label for="question5">How do you feel about your partner?:</label>
+                <textarea id="question5" name="question5" required></textarea><br>
+            
+                <label for="shareWithOther">Share with other user:</label>
+                <input type="checkbox" id="shareWithOther" name="shareWithOther"><br>
+
+                <input type="hidden" name="LogedUser" id="LogedUser">
+            
+                <button type="submit">Submit</button>
+            </form>
+            <a href="Submissions.html" class="button-link">
+                <button>Submissions</button>
+            </a>
+        </div>
+
+        <script src="script.js"></script>
     </div>
-
-    <div id="profile" style="display:none;">
-        <h2>Your Submissions</h2>
-        <form form action="https://script.google.com/macros/s/AKfycbz2Ky70wORkclpsvD1rLuGKHm0vucFvslqb2ffdfqwSS31yBsLp6cdjtWQsQX4ZKpw/exec" method="POST" id="questionnaireForm">
-            <label for="question1">How have you felt today? (1-10):</label>
-            <input type="number" id="question1" name="question1" min="1" max="10" required><br>
-            
-            <label for="question2">Did you have any frustrations today?:</label>
-            <select id="question2" name="question2" required>
-                <option value="" disabled selected>Select an option</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select><br>
-            
-            <label for="question3">Did you feel strong and capable today?:</label>
-            <select id="question3" name="question3" required>
-                <option value="" disabled selected>Select an option</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select><br>
-            
-            <label for="question4">Did you feel appreciated and loved today?:</label>
-            <select id="question4" name="question4" required>
-                <option value="" disabled selected>Select an option</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select><br>
-            
-            <label for="question5">How do you feel about your partner?:</label>
-            <textarea id="question5" name="question5" required></textarea><br>
-            
-            <label for="shareWithOther">Share with other user:</label>
-            <input type="checkbox" id="shareWithOther" name="shareWithOther"><br>
-
-            <input type="hidden" name="LogedUser" id="LogedUser">
-            
-            <button type="submit">Submit</button>
-        </form>
-        <a href="Submissions.html" class="button-link">
-            <button>Submissions</button>
-        </a>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>

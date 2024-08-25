@@ -1,0 +1,92 @@
+.auth {
+    margin:auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 20vh;
+    padding: 20px;
+    width: 500px;
+}
+
+input#loginUsername {
+    width: 300px;
+    display: inline-block;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+
+input#loginPassword {
+    margin-bottom: 20px;
+    width:300px;
+}
+
+button {
+    margin:auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 3vh;
+    padding: 15px;
+    width: 300px;
+}
+
+.LoginText {
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: auto; /* Adjust height automatically based on content */
+    padding: 15px; /* Add padding inside the element */
+    width: 300px; /* Fixed width */
+    font-size: 20px; /* Font size */
+    margin: 50px auto 0; /* Center horizontally with auto, 50px top margin */
+    box-sizing: border-box; /* Include padding and border in element’s total width and height */
+    text-align: center;
+}
+
+/* Styles.css */
+html, body {
+    height: 100%; /* Ensure the body takes up the full height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+
+body {
+    background-image: 
+        url('Writing.jpg'); /* Full viewport background image */
+    background-size: cover; /* Cover the full viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating */
+    background-attachment: fixed; /* Fix the image in place */
+}
+
+.Background2 {
+    position: absolute; /* Ensure it’s positioned over the body */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('Book.jpg'); /* Image that sits on top */
+    background-position: center 20px; /* Center the image and position it 20px from the top */
+    background-repeat: no-repeat; /* Prevent repeating */
+    background-attachment: fixed; /* Fix the image in place */
+    z-index: 1; /* Ensure it is above other content */
+}
+
+.Form {
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: auto; /* Adjust height automatically based on content */
+    padding: 15px; /* Add padding inside the element */
+    width: 500px; /* Fixed width */
+    font-size: 20px; /* Font size */
+    margin: 50px auto 0; /* Center horizontally with auto, 50px top margin */
+    box-sizing: border-box; /* Include padding and border in element’s total width and height */
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.Forminput#shareWithOther{
+    margin-bottom: 50px;
+}
