@@ -19,6 +19,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         document.getElementById('auth').style.display = 'none';
         document.getElementById('profile').style.display = 'block';
         document.getElementById('LogedUser').value = currentUser.username || username;
+        document.getElementById('LoginText').style.display = 'none';
         displaySubmissions();
     } else {
         alert('Invalid username or password');

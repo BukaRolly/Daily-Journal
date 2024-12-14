@@ -4,12 +4,11 @@
     display: flex;
     justify-content: center;
     height: 20vh;
-    padding: 20px;
-    width: 500px;
+    width: 100%;
 }
 
 input#loginUsername {
-    width: 300px;
+    width: 100%;
     display: inline-block;
     margin-bottom: 5px;
     text-align: left;
@@ -18,7 +17,7 @@ input#loginUsername {
 
 input#loginPassword {
     margin-bottom: 20px;
-    width:300px;
+    width:100%;
 }
 
 button {
@@ -32,7 +31,7 @@ button {
 }
 
 .LoginText {
-    display: flex; /* Enable flexbox layout */
+    display: flex;
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
     height: auto; /* Adjust height automatically based on content */
@@ -74,13 +73,13 @@ body {
 }
 
 .Form {
+    font-size:20px;
     display: flex; /* Enable flexbox layout */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
     height: auto; /* Adjust height automatically based on content */
     padding: 15px; /* Add padding inside the element */
-    width: 500px; /* Fixed width */
-    font-size: 20px; /* Font size */
+    width: 100%; /* Fixed width */
     margin: 50px auto 0; /* Center horizontally with auto, 50px top margin */
     box-sizing: border-box; /* Include padding and border in element’s total width and height */
     text-align: center;
