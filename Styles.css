@@ -73,7 +73,6 @@ body {
 }
 
 .Form {
-    font-size:20px;
     display: flex; /* Enable flexbox layout */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
@@ -88,4 +87,9 @@ body {
 
 .Forminput#shareWithOther{
     margin-bottom: 50px;
+}
+
+textarea#question5 {
+    width: 70%;
+    height: 60px;
 }
