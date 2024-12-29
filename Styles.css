@@ -9,13 +9,13 @@
 input#loginUsername {
     width: 100%;
     display: inline-block;
-    margin-bottom: 5px;
+    margin-bottom: 0.275rem;
     text-align: left;
 }
 
 
 input#loginPassword {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     width:100%;
 }
 
@@ -25,8 +25,8 @@ button {
     display: flex;
     justify-content: center;
     height: 3vh;
-    padding: 15px;
-    width: 300px;
+    padding: 1rem;
+    width: 18.75rem;
 }
 
 .LoginText {
@@ -34,10 +34,10 @@ button {
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
     height: auto; /* Adjust height automatically based on content */
-    padding: 15px; /* Add padding inside the element */
-    width: 300px; /* Fixed width */
-    font-size: 20px; /* Font size */
-    margin: 50px auto 0; /* Center horizontally with auto, 50px top margin */
+    padding: 1rem; /* Add padding inside the element */
+    width: 18.75 rem; /* Fixed width */
+    font-size: 1.25rem; /* Font size */
+    margin: 3.125rem auto 0; /* Center horizontally with auto, 50px top margin */
     box-sizing: border-box; /* Include padding and border in element’s total width and height */
     text-align: center;
 }
@@ -65,7 +65,7 @@ body {
     width: 100%;
     height: 100%;
     background-image: url('Book.jpg'); /* Image that sits on top */
-    background-position: center 20px; /* Center the image and position it 20px from the top */
+    background-position: center 1.25rem; /* Center the image and position it 20px from the top */
     background-repeat: no-repeat; /* Prevent repeating */
     background-attachment: fixed; /* Fix the image in place */
     z-index: 1; /* Ensure it is above other content */
@@ -76,19 +76,15 @@ body {
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
     height: auto; /* Adjust height automatically based on content */
-    padding: 15px; /* Add padding inside the element */
+    padding: 1rem; /* Add padding inside the element */
     width: 100%; /* Fixed width */
-    margin: 50px auto 0; /* Center horizontally with auto, 50px top margin */
+    margin: 3.125rem auto 0; /* Center horizontally with auto, 50px top margin */
     box-sizing: border-box; /* Include padding and border in element’s total width and height */
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 3.125rem;
 }
 
 .Forminput#shareWithOther{
-    margin-bottom: 50px;
+    margin-bottom: 3.125rem;
 }
 
-textarea#question5 {
-    width: 70%;
-    height: 60px;
-}

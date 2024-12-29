@@ -6,18 +6,32 @@
 <body>
 
   <a href="Partner'sSubmissions.html" class="button-link">
-    <button>My partner's answers</button>
+    <button>My forms</button>
   </a>
  
 <div id="Submissions-Table"></div>
 
 <script>
-  const currentUser = localStorage.getItem('currentUser');
-  const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbxkpFj8KvO6B2PQE1EOTIk56sovcoN_VCmas2HBApSW1VDv11bGM9nB23Ap25fxz0g/exec?filterValue=' + encodeURIComponent(currentUser);
+  const currentUsersPartner = localStorage.getItem('currentUser') === 'Bubu' ? 'Natasch' : 'Bubu';
+  const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbzxonNEv1sOSUZ7JBj7u2bJhdrFvDRYTR0HajF6WD-52egfjBVyq3ApHROgwp5-HsRc/exec?filterValue=' + encodeURIComponent(currentUsersPartner);
 
   function createSubmmissionsTable(data) {
+
+    const header = [
+    "How have you felt today?",
+    "Did you have any frustrations today?",
+    "Did you feel strong and capable today?",
+    "Do you feel appreciated and loved today?",
+    "How do you feel about your partner?",
+    "Reveal your answer to your partner?",
+    "User",
+    "Date"
+  ];    
+    const rows = data.slice(1).reverse();
+    const data_backwards = [header, ...rows];
+
     let table = '<table border="1">';
-    data.forEach((row, rowIndex) => {
+    data_backwards.forEach((row, rowIndex) => {
       table += '<tr>';
       row.forEach((cell) => {
         if (rowIndex ===0) {

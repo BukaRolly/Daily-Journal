@@ -93,3 +93,13 @@ if (!('webkitSpeechRecognition' in window)) {
         }
     };
 }
+document.getElementById('submit').addEventListener('click', function() {
+    const button = this; // Refers to the button that triggered the click event
+    button.classList.add('exploding_button_animation'); // Adds the 'exploding' class to the button
+    
+    // Remove the 'exploding' class after the animation is complete
+    setTimeout(() => {
+      button.classList.remove('exploding_button_animation');
+    }, 400); // 400ms matches the duration of the animation in the CSS
+  });
+  
