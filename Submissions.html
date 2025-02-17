@@ -8,15 +8,17 @@
 
   <a href="Partner'sSubmissions.html" class="button-link">
     <button>My Partner's Submissions</button>
+    <button onclick="prevPage()">Previous 10 entries</button>
+    <button onclick="nextPage()">Next 10 entries</button>
   </a>
+
+  <div id="Loading" class="Loading">Table is loading.....</div>
 
   <div id="Submissions-Table"></div>
   <p id="page-info"></p>
-  <button onclick="prevPage()">Previous</button>
-  <button onclick="nextPage()">Next</button>
 
   <script>
-    const currentUsersPartner = localStorage.getItem('currentUser') === 'Bubu' ? 'Natasch' : 'Bubu';
+    const currentUsersPartner = localStorage.getItem('currentUser') === 'Bubu' ? 'Bubu' : 'Natasch';
     const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbzxonNEv1sOSUZ7JBj7u2bJhdrFvDRYTR0HajF6WD-52egfjBVyq3ApHROgwp5-HsRc/exec?filterValue=' + encodeURIComponent(currentUsersPartner);
 
     let data_backwards = [];
@@ -26,9 +28,11 @@
     function renderTable(page) {
       if (data_backwards.length === 0) return;
 
-      let start = Math.max(data_backwards.length - 1 - (page + 1) * rowsPerPage, 1);
+      let totalPages = Math.ceil((data_backwards.length - 1) / rowsPerPage);
+      if (page < 0 || page >= totalPages) return; // Prevent invalid pages
+
+      let start = 1 + page * rowsPerPage;  // Skip header row (index 0)
       let end = start + rowsPerPage;
-      if (start < 1) start = 1;
 
       let table = '<table border="1">';
       
@@ -39,7 +43,7 @@
       });
       table += '</tr>';
 
-      // Add paginated rows
+      // Add paginated rows (newest first)
       for (let i = start; i < end && i < data_backwards.length; i++) {
         table += '<tr>';
         data_backwards[i].forEach(cell => {
@@ -51,11 +55,13 @@
       table += '</table>';
 
       document.getElementById('Submissions-Table').innerHTML = table;
-      document.getElementById('page-info').innerText = `Page ${page + 1} of ${Math.ceil((data_backwards.length - 1) / rowsPerPage)}`;
+      document.getElementById('page-info').innerText = `Page ${page + 1} of ${totalPages}`;
+      document.getElementById('Loading').style.display = 'none';
     }
 
     function nextPage() {
-      if (currentPage < Math.ceil((data_backwards.length - 1) / rowsPerPage) - 1) {
+      let totalPages = Math.ceil((data_backwards.length - 1) / rowsPerPage);
+      if (currentPage < totalPages - 1) {
         currentPage++;
         renderTable(currentPage);
       }
@@ -68,7 +74,7 @@
       }
     }
 
-    function createSubmmissionsTable(data) {
+    function createSubmissionsTable(data) {
       const header = [
         "How have you felt today?",
         "Did you have any frustrations today?",
@@ -79,31 +85,25 @@
         "User",
         "Date"
       ];    
-      const rows = data.slice(1).reverse();  // Reverse to show latest first
+
+      const rows = data.slice(1).reverse();  // Flip table so newest appears first
       data_backwards = [header, ...rows];
 
+      currentPage = 0; // Reset to first page after loading new data
       renderTable(currentPage);
     }
 
     fetch(GoogleScriptWebApp)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        createSubmmissionsTable(data);
+        console.log("Fetched Data:", data);
+        createSubmissionsTable(data);
       })
       .catch(error => {
-        console.error('Error Fetching Data', error);
+        console.error('Error Fetching Data:', error);
       });
 
   </script>
-
-  <iframe
-    src="https://lookerstudio.google.com/embed/reporting/f6a2760d-bc43-4cc4-be05-62d7a8916d01/page/VPx8D"
-    width="800"
-    height="500"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
 
 </body>
 </html>
