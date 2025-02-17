@@ -2,55 +2,116 @@
 <html>
 <head>
   <title>Google Sheets Data</title>
+  <link rel="Stylesheet" href="Submissions_styles.css">
 </head>
 <body>
- 
-<div id="Submissions-Table"></div>
 
-<script>
-  const currentUser = localStorage.getItem('currentUser');
-  const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbxkpFj8KvO6B2PQE1EOTIk56sovcoN_VCmas2HBApSW1VDv11bGM9nB23Ap25fxz0g/exec?filterValue=' + encodeURIComponent(currentUser);
+  <a href="Partner'sSubmissions.html" class="button-link">
+    <button>My forms</button>
+    <button onclick="prevPage()">Previous 10 entries</button>
+    <button onclick="nextPage()">Next 10 entries</button>
+  </a>
 
-  function createSubmmissionsTable(data) {
+  <div id="Loading" class="Loading">Table is loading.....</div>
 
-    const header = [
-    "How have you felt today?",
-    "Did you have any frustrations today?",
-    "Did you feel strong and capable today?",
-    "Do you feel appreciated and loved today?",
-    "How do you feel about your partner?",
-    "Reveal your answer to your partner?",
-    "User",
-    "Date"
-  ];    
-    const rows = data.slice(1).reverse();
-    const data_backwards = [header, ...rows];
+  <div id="Submissions-Table"></div>
+  <p id="page-info"></p>
 
-    let table = '<table border="1">';
-    data_backwards.forEach((row, rowIndex) => {
+  <script>
+    const currentUsersPartner = localStorage.getItem('currentUser') === 'Bubu' ? 'Natasch' : 'Bubu';
+    const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbzxonNEv1sOSUZ7JBj7u2bJhdrFvDRYTR0HajF6WD-52egfjBVyq3ApHROgwp5-HsRc/exec?filterValue=' + encodeURIComponent(currentUsersPartner);
+
+    let data_backwards = [];
+    let currentPage = 0;
+    const rowsPerPage = 10;
+
+    function renderTable(page) {
+      if (data_backwards.length === 0) return;
+
+      let totalPages = Math.ceil((data_backwards.length - 1) / rowsPerPage);
+      if (page < 0 || page >= totalPages) return; // Prevent invalid pages
+
+      let start = 1 + page * rowsPerPage;  // Skip header row (index 0)
+      let end = start + rowsPerPage;
+
+      let table = '<table border="1">';
+      
+      // Add table header (first row)
       table += '<tr>';
-      row.forEach((cell) => {
-        if (rowIndex ===0) {
-          table += '<th>' + cell + '</th>';
-        } else {
-          table += '<td>' + cell + '</td>';
-        }
+      data_backwards[0].forEach(cell => {
+        table += '<th>' + cell + '</th>';
       });
       table += '</tr>';
-    });
-    table += '</table>';
-    document.getElementById('Submissions-Table').innerHTML =table;
-  }
 
-  fetch(GoogleScriptWebApp)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-      createSubmmissionsTable(data);
-    })
-    .catch(error => {
-      console.error('Erorr Fetchiing Data', error);
-    });
+      // Add paginated rows (newest first)
+      for (let i = start; i < end && i < data_backwards.length; i++) {
+        table += '<tr>';
+        data_backwards[i].forEach(cell => {
+          table += '<td>' + cell + '</td>';
+        });
+        table += '</tr>';
+      }
+      
+      table += '</table>';
 
-</script>
+      document.getElementById('Submissions-Table').innerHTML = table;
+      document.getElementById('page-info').innerText = `Page ${page + 1} of ${totalPages}`;
+      document.getElementById('Loading').style.display = 'none';
+    }
 
+    function nextPage() {
+      let totalPages = Math.ceil((data_backwards.length - 1) / rowsPerPage);
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        renderTable(currentPage);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderTable(currentPage);
+      }
+    }
+
+    function createSubmissionsTable(data) {
+      const header = [
+        "How have you felt today?",
+        "Did you have any frustrations today?",
+        "Did you feel strong and capable today?",
+        "Do you feel appreciated and loved today?",
+        "How do you feel about your partner?",
+        "Reveal your answer to your partner?",
+        "User",
+        "Date"
+      ];    
+
+      const rows = data.slice(1).reverse();  // Flip table so newest appears first
+      data_backwards = [header, ...rows];
+
+      currentPage = 0; // Reset to first page after loading new data
+      renderTable(currentPage);
+    }
+
+    fetch(GoogleScriptWebApp)
+      .then(response => response.json())
+      .then(data => {
+        console.log("Fetched Data:", data);
+        createSubmissionsTable(data);
+      })
+      .catch(error => {
+        console.error('Error Fetching Data:', error);
+      });
+
+  </script>
+
+  <iframe
+    src="https://lookerstudio.google.com/embed/reporting/f6a2760d-bc43-4cc4-be05-62d7a8916d01/page/VPx8D"
+    width="800"
+    height="500"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+
+</body>
+</html>

@@ -2,61 +2,100 @@
 <html>
 <head>
   <title>Google Sheets Data</title>
+  <link rel="Stylesheet" href="Submissions_styles.css">
 </head>
 <body>
 
   <a href="Partner'sSubmissions.html" class="button-link">
     <button>My forms</button>
   </a>
- 
-<div id="Submissions-Table"></div>
 
-<script>
-  const currentUsersPartner = localStorage.getItem('currentUser') === 'Bubu' ? 'Natasch' : 'Bubu';
-  const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbzxonNEv1sOSUZ7JBj7u2bJhdrFvDRYTR0HajF6WD-52egfjBVyq3ApHROgwp5-HsRc/exec?filterValue=' + encodeURIComponent(currentUsersPartner);
+  <div id="Submissions-Table"></div>
+  <p id="page-info"></p>
+  <button onclick="prevPage()">Previous</button>
+  <button onclick="nextPage()">Next</button>
 
-  function createSubmmissionsTable(data) {
+  <script>
+    const currentUsersPartner = localStorage.getItem('currentUser') === 'Bubu' ? 'Natasch' : 'Bubu';
+    const GoogleScriptWebApp = 'https://script.google.com/macros/s/AKfycbzxonNEv1sOSUZ7JBj7u2bJhdrFvDRYTR0HajF6WD-52egfjBVyq3ApHROgwp5-HsRc/exec?filterValue=' + encodeURIComponent(currentUsersPartner);
 
-    const header = [
-    "How have you felt today?",
-    "Did you have any frustrations today?",
-    "Did you feel strong and capable today?",
-    "Do you feel appreciated and loved today?",
-    "How do you feel about your partner?",
-    "Reveal your answer to your partner?",
-    "User",
-    "Date"
-  ];    
-    const rows = data.slice(1).reverse();
-    const data_backwards = [header, ...rows];
+    let data_backwards = [];
+    let currentPage = 0;
+    const rowsPerPage = 10;
 
-    let table = '<table border="1">';
-    data_backwards.forEach((row, rowIndex) => {
+    function renderTable(page) {
+      if (data_backwards.length === 0) return;
+
+      let start = Math.max(data_backwards.length - 1 - (page + 1) * rowsPerPage, 1);
+      let end = start + rowsPerPage;
+      if (start < 1) start = 1;
+
+      let table = '<table border="1">';
+      
+      // Add table header (first row)
       table += '<tr>';
-      row.forEach((cell) => {
-        if (rowIndex ===0) {
-          table += '<th>' + cell + '</th>';
-        } else {
-          table += '<td>' + cell + '</td>';
-        }
+      data_backwards[0].forEach(cell => {
+        table += '<th>' + cell + '</th>';
       });
       table += '</tr>';
-    });
-    table += '</table>';
-    document.getElementById('Submissions-Table').innerHTML =table;
-  }
 
-  fetch(GoogleScriptWebApp)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-      createSubmmissionsTable(data);
-    })
-    .catch(error => {
-      console.error('Erorr Fetchiing Data', error);
-    });
+      // Add paginated rows
+      for (let i = start; i < end && i < data_backwards.length; i++) {
+        table += '<tr>';
+        data_backwards[i].forEach(cell => {
+          table += '<td>' + cell + '</td>';
+        });
+        table += '</tr>';
+      }
+      
+      table += '</table>';
 
-</script>
+      document.getElementById('Submissions-Table').innerHTML = table;
+      document.getElementById('page-info').innerText = `Page ${page + 1} of ${Math.ceil((data_backwards.length - 1) / rowsPerPage)}`;
+    }
+
+    function nextPage() {
+      if (currentPage < Math.ceil((data_backwards.length - 1) / rowsPerPage) - 1) {
+        currentPage++;
+        renderTable(currentPage);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderTable(currentPage);
+      }
+    }
+
+    function createSubmmissionsTable(data) {
+      const header = [
+        "How have you felt today?",
+        "Did you have any frustrations today?",
+        "Did you feel strong and capable today?",
+        "Do you feel appreciated and loved today?",
+        "How do you feel about your partner?",
+        "Reveal your answer to your partner?",
+        "User",
+        "Date"
+      ];    
+      const rows = data.slice(1).reverse();  // Reverse to show latest first
+      data_backwards = [header, ...rows];
+
+      renderTable(currentPage);
+    }
+
+    fetch(GoogleScriptWebApp)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        createSubmmissionsTable(data);
+      })
+      .catch(error => {
+        console.error('Error Fetching Data', error);
+      });
+
+  </script>
 
   <iframe
     src="https://lookerstudio.google.com/embed/reporting/f6a2760d-bc43-4cc4-be05-62d7a8916d01/page/VPx8D"
@@ -66,3 +105,5 @@
     allowfullscreen>
   </iframe>
 
+</body>
+</html>
